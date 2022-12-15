@@ -1,4 +1,4 @@
-class Api {
+class LiveLikeApi {
 
     constructor(){
         this.utils = new Utils();

@@ -12,44 +12,56 @@
 
 <body>
     <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <form autocomplete="off">
-                    <div class="form-group">
-                        <label for="experience-name-input">Experience Name</label>
-                        <input type="text" class="form-control" id="experience-name-input"
-                            placeholder="Experience name...">
-                    </div>
-                    <br />
-                    <div class="form-group">
-                        <label for="profile-type-select">Profile Type:</label>
-                        <select class="form-control" id="profile-type-select" placeholder="profile type...">
-                            <option value="email-and-nickname" selected>Email and Nickname</option>
-                            <option value="team-name">Team name</option>
-                        </select>
-                    </div>
-                    <br />
+        <div class="row ">
+            <h1>Experience Builder</h1>
+            <hr />
+            <div class="col-md-6 ">
+                <div class="section-setup">
+                    <h2>Setup</h2>
+                    <form autocomplete="off">
+                        <div class="form-group">
+                            <label for="experience-name-input">Experience Name</label>
+                            <input type="text" class="form-control" id="experience-name-input"
+                                placeholder="Experience name...">
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-type-select">Language:</label>
+                            <select class="form-control" id="language-select" placeholder="profile type...">
+                                <option value="en" selected>English</option>
+                                <option value="fr">French</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <hr>
+                <div class="section-visuals">
+                    <h2>Visuals</h2>
+                </div>
+                <hr>
+                <div class="section-colors">
+                    <h2>Colors</h2>
+                </div>
+                <hr>
+                <div class="section-submit">
                     <button class="btn btn-primary" id="create-environment-button">Create Environment</button>
-                    <br />
-                </form>
-                <br />
+                </div>
+                <!-- <br />
                 <a target="_blank" id="experience-link" href=""></a>
                 <br />
                 <a target="_blank" id="cms-link" href=""></a>
                 <br />
-                <div id="qrcode" style="width:100px; height:100px; margin-top:15px;"></div>
+                <div id="qrcode" style="width:100px; height:100px; margin-top:15px;"></div> -->
                 <!-- <button disabled id="download-qr-code-button" onclick="handleDownloadQrCode()"
                     class="btn btn-warning">Download QR Code</button> -->
             </div>
         </div>
     </div>
     <script src="./config.js"></script>
-    <script src="./scripts/api.js"></script>
     <script src="./scripts/qrcode.min.js"></script>
     <script src="./scripts/utils.js"></script>
     <script src="./scripts/api.js"></script>
     <script src="./scripts/app.js"></script>
-    <script src="./scripts/index.js"></script>    
+    <script src="./scripts/index.js"></script>
 </body>
 
 </html>

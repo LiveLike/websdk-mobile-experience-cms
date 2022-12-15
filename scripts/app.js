@@ -1,7 +1,7 @@
 class App {
 
     constructor() {
-        this.api = new Api();
+        this.api = new LiveLikeApi();
         this.utils = new Utils();
     }
 
@@ -43,7 +43,7 @@ class App {
     };
 
     initializeAsync = () => {
-        document.querySelector("#create-environment-button").addEventListener("click", handleCreateEnvironmentButtonAsync);
+        document.querySelector("#create-environment-button").addEventListener("click", this.handleCreateEnvironmentButtonAsync);
         console.debug("App initialized...");
     };   
 }
