@@ -42,8 +42,38 @@ class App {
         this.utils.generateQrCode({ link: experienceLink, elementId: "qrcode" });
     };
 
+    handleChangeColor = (colorKey) => {
+        const colorConfig = config.experienceConfig.colorsList.find(x => x.key === colorKey);
+        colorConfig.value = document.querySelector(`#${colorConfig.key}-color-input`).value;
+        document.querySelector("#PageBackground-color-demo-field").style.backgroundColor = colorConfig.value;
+    }
+
+    loadDefaultValues = () => {
+        // visuals section - load default 
+        document.querySelector("#login-banner-url-input").value = config.experienceConfig.loginBannerImageUrlDefaultValue;
+        document.querySelector("#header-banner-url-input").value = config.experienceConfig.headerBannerImageUrlDefaultValue;
+        document.querySelector("#font-file-url-input").value = config.experienceConfig.fontFileUrlDefaultValue;
+
+        const colorsForm = document.querySelector(".form-colors");
+        colorsForm.innerHTML = "";
+        config.experienceConfig.colorsList.forEach(colorConfig => {
+            colorsForm.innerHTML += `
+<div class="color-section">
+    <div class="color-description">
+        <label for="${colorConfig.key}-color-input">${colorConfig.display}</label>
+        <div class="color-demo-field" id="${colorConfig.key}-color-demo-field" style="background-color: ${colorConfig.defaultValue}">
+        </div>
+    </div>    
+    <br />
+    <input type="text" class="form-control color-input" id="${colorConfig.key}-color-input" value="${colorConfig.defaultValue}" onkeydown="app.handleChangeColor('${colorConfig.key}')" onkeyup="app.handleChangeColor('${colorConfig.key}')" placeholder="">
+</div>
+<br />`;
+        });
+    }
+
     initializeAsync = () => {
         document.querySelector("#create-environment-button").addEventListener("click", this.handleCreateEnvironmentButtonAsync);
+        this.loadDefaultValues();
         console.debug("App initialized...");
-    };   
+    };
 }
