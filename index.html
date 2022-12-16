@@ -13,13 +13,13 @@
             width: 100%;
         }
 
-        .color-description{
+        .color-description {
             width: 100%;
             display: flex;
             flex-direction: row;
         }
-        
-        .color-section label{
+
+        .color-section label {
             align-self: flex-start;
         }
 
@@ -30,11 +30,11 @@
             min-width: 30%;
             height: 24px;
         }
-/* 
+
+        /* 
         .color-input {
             width: 10%;
         } */
-
     </style>
 </head>
 
@@ -53,7 +53,8 @@
                     </div>
                     <div class="form-group">
                         <label for="language-select">Language:</label>
-                        <select class="form-control" id="language-select" placeholder="Language...">
+                        <select class="form-control" id="language-select" placeholder="Language..."
+                            onchange="app.handleValueChange(event, 'language')">
                             <option value="en" selected>English</option>
                             <option value="fr">French</option>
                         </select>
@@ -66,15 +67,21 @@
                 <form autocomplete="off">
                     <div class="form-group">
                         <label for="login-banner-url-input">Log-in Bannner Image URL</label>
-                        <input type="text" class="form-control" id="login-banner-url-input" placeholder="">
+                        <input type="text" class="form-control" id="login-banner-url-input"
+                            onkeydown="app.handleValueChange(event, 'loginBannerImageUrl')"
+                            onkeyup="app.handleValueChange(event, 'loginBannerImageUrl')" placeholder="">
                     </div>
                     <div class="form-group">
                         <label for="header-banner-url-input">Header Bannner Image URL</label>
-                        <input type="text" class="form-control" id="header-banner-url-input" placeholder="">
+                        <input type="text" class="form-control" id="header-banner-url-input"
+                            onkeydown="app.handleValueChange(event, 'headerBannerImageUrl')"
+                            onkeyup="app.handleValueChange(event, 'headerBannerImageUrl')" placeholder="">
                     </div>
                     <div class="form-group">
                         <label for="font-file-url-input">Font File URL</label>
-                        <input type="text" class="form-control" id="font-file-url-input" placeholder="">
+                        <input type="text" class="form-control" id="font-file-url-input"
+                            onkeydown="app.handleValueChange(event, 'fontFileUrl')"
+                            onkeyup="app.handleValueChange(event, 'fontFileUrl')" placeholder="">
                     </div>
                 </form>
             </div>

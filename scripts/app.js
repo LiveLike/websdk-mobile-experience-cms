@@ -14,6 +14,8 @@ class App {
         console.debug(linkRewardTableWithProgramResponse);
         const startProgramResponse = await this.api.startProgramAsync({ programId: program.id });
         console.debug(startProgramResponse);
+        const updateChatroomResponse = await this.api.updateChatroomAsync(program.default_chat_room, config.experienceConfig);
+        console.debug(startProgramResponse);
 
         return {
             programId: program.id,
@@ -42,6 +44,11 @@ class App {
         this.utils.generateQrCode({ link: experienceLink, elementId: "qrcode" });
     };
 
+    handleValueChange = (event, configItemName) => {
+        config.experienceConfig[configItemName] = event.target.value;
+        console.log(config.experienceConfig[configItemName]);
+    }
+
     handleChangeColor = (colorKey) => {
         const colorConfig = config.experienceConfig.colorsList.find(x => x.key === colorKey);
         colorConfig.value = document.querySelector(`#${colorConfig.key}-color-input`).value;
@@ -50,9 +57,9 @@ class App {
 
     loadDefaultValues = () => {
         // visuals section - load default 
-        document.querySelector("#login-banner-url-input").value = config.experienceConfig.loginBannerImageUrlDefaultValue;
-        document.querySelector("#header-banner-url-input").value = config.experienceConfig.headerBannerImageUrlDefaultValue;
-        document.querySelector("#font-file-url-input").value = config.experienceConfig.fontFileUrlDefaultValue;
+        document.querySelector("#login-banner-url-input").value = config.experienceConfig.loginBannerImageUrl;
+        document.querySelector("#header-banner-url-input").value = config.experienceConfig.headerBannerImageUrl;
+        document.querySelector("#font-file-url-input").value = config.experienceConfig.fontFileUrl;
 
         const colorsForm = document.querySelector(".form-colors");
         colorsForm.innerHTML = "";

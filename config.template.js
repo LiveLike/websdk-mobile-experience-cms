@@ -3,11 +3,12 @@ const config = {
     producerToken: "",
     clientId: "",
     rewardTableId: "",
-    rewardItemId: "a",
+    rewardItemId: "",
     experienceConfig: {
-        loginBannerImageUrlDefaultValue: "./assets/images/login-banner.svg",
-        headerBannerImageUrlDefaultValue: "./assets/images/timeline-banner.svg",
-        fontFileUrlDefaultValue: "./assets/fonts/IBMPlexSans-Regular.ttf",
+        language: "en",
+        loginBannerImageUrl: "./assets/images/login-banner.svg",
+        headerBannerImageUrl: "./assets/images/timeline-banner.svg",
+        fontFileUrl: "./assets/fonts/IBMPlexSans-Regular.ttf",
         colorsList: [
             { key: "PageBackground", display: "Page background", defaultValue: "#0C1324" },
             { key: "BannerBackground", display: "Banner background", defaultValue: "#164684" },
