@@ -1,18 +1,19 @@
 class LiveLikeApi {
 
-    constructor() {
+    constructor(config) {
+        this.config = config;
         this.utils = new Utils();
     }
 
     createProgramAsync = async (title) => {
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
-        headers.append("Authorization", `Bearer ${producerToken}`);
-        const response = await fetch(`${baseUrl}/programs/`, {
+        headers.append("Authorization", `Bearer ${this.config.producerToken}`);
+        const response = await fetch(`${this.config.baseUrl}/programs/`, {
             method: "POST",
             headers: headers,
             body: JSON.stringify({
-                client_id: clientId,
+                client_id: this.config.clientId,
                 title: title,
                 scheduled_at: new Date(Date.now())
             })
@@ -27,14 +28,14 @@ class LiveLikeApi {
     createLeaderboardAsync = async (name) => {
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
-        headers.append("Authorization", `Bearer ${producerToken}`);
-        const response = await fetch(`${baseUrl}/leaderboards/`, {
+        headers.append("Authorization", `Bearer ${this.config.producerToken}`);
+        const response = await fetch(`${this.config.baseUrl}/leaderboards/`, {
             method: "POST",
             headers: headers,
             body: JSON.stringify({
-                client_id: clientId,
+                client_id: this.config.clientId,
                 name: name,
-                reward_item_id: rewardItemId
+                reward_item_id: this.config.rewardItemId
             })
         });
 
@@ -47,8 +48,8 @@ class LiveLikeApi {
     linkLeaderboardWithProgramAsync = async ({ programId, leaderboardId }) => {
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
-        headers.append("Authorization", `Bearer ${producerToken}`);
-        const response = await fetch(`${baseUrl}/programs/${programId}/leaderboards/${leaderboardId}/`, {
+        headers.append("Authorization", `Bearer ${this.config.producerToken}`);
+        const response = await fetch(`${this.config.baseUrl}/programs/${programId}/leaderboards/${leaderboardId}/`, {
             method: "PUT",
             headers: headers,
             body: JSON.stringify({})
@@ -59,11 +60,11 @@ class LiveLikeApi {
         console.warn("unable to link leaderboard with program", response);
     };
 
-    linkRewardTableWithProgramAsync = async ({ programId, rewardTableId }) => {
+    linkRewardTableWithProgramAsync = async ({ programId }) => {
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
-        headers.append("Authorization", `Bearer ${producerToken}`);
-        const response = await fetch(`${baseUrl}/programs/${programId}/reward-tables/${rewardTableId}/`, {
+        headers.append("Authorization", `Bearer ${this.config.producerToken}`);
+        const response = await fetch(`${this.config.baseUrl}/programs/${programId}/reward-tables/${this.config.rewardTableId}/`, {
             method: "PUT",
             headers: headers,
             body: JSON.stringify({})
@@ -78,8 +79,8 @@ class LiveLikeApi {
     startProgramAsync = async ({ programId }) => {
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
-        headers.append("Authorization", `Bearer ${producerToken}`);
-        const response = await fetch(`${baseUrl}/programs/${programId}/start/`, {
+        headers.append("Authorization", `Bearer ${this.config.producerToken}`);
+        const response = await fetch(`${this.config.baseUrl}/programs/${programId}/start/`, {
             method: "POST",
             headers: headers,
             body: JSON.stringify({})
@@ -91,14 +92,19 @@ class LiveLikeApi {
         console.log("unable to start program", response);
     };
 
-    updateChatroomAsync = async (chatroomId, customData) => {
+    updateChatroomAsync = async ({ chatroomId, customData }) => {
+        console.log(chatroomId, customData);
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
-        headers.append("Authorization", `Bearer ${producerToken}`);
-        const response = await fetch(`${baseUrl}/chat-rooms/${chatroomId}/`, {
+        headers.append("Authorization", `Bearer ${this.config.producerToken}`);
+
+        const customDataString = JSON.stringify(customData);
+        const response = await fetch(`${this.config.baseUrl}/chat-rooms/${chatroomId}/`, {
             method: "PATCH",
             headers: headers,
-            body: JSON.stringify({ custom_data: customData })
+            body: JSON.stringify({
+                custom_data: customDataString
+            })
         });
 
         if (response.ok) {
