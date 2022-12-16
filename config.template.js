@@ -1,4 +1,4 @@
-const config = {
+let config = {
     baseUrl: "",
     producerToken: "",
     clientId: "",
