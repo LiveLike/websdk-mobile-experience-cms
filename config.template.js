@@ -28,3 +28,7 @@ let config = {
         ]
     }
 };
+
+const getConfig = () => {
+    return window.config;
+};

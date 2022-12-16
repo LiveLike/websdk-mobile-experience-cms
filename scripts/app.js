@@ -1,23 +1,22 @@
 class App {
 
-    constructor(config) {
-        this.config = config;
-        this.api = new LiveLikeApi(this.config);
+    constructor() {
+        this.api = new LiveLikeApi();
         this.utils = new Utils();
     }
 
     getCustomDataFromConfig() {
         var colors = {};
 
-        this.config.experienceConfig.colorsList.forEach(colorConfig => {
+        getConfig().experienceConfig.colorsList.forEach(colorConfig => {
             colors[colorConfig.key] = colorConfig.value;
         });
 
         return {
             style: {
-                smallHeader: this.config.experienceConfig.headerBannerImageUrl,
-                loginHeader: this.config.experienceConfig.loginBannerImageUrl,
-                font: this.config.experienceConfig.fontFileUrl,
+                smallHeader: getConfig().experienceConfig.headerBannerImageUrl,
+                loginHeader: getConfig().experienceConfig.loginBannerImageUrl,
+                font: getConfig().experienceConfig.fontFileUrl,
                 colors: colors
             }
         };
@@ -55,31 +54,31 @@ class App {
         experienceLinkElement.innerHTML = "Experience Link";
 
         const cmsLinkElement = document.querySelector("#cms-link");
-        cmsLinkElement.setAttribute("href", `https://cf-blast.livelikecdn.com/producer/applications/${this.config.clientId}/programs/${environment.programId}`);
+        cmsLinkElement.setAttribute("href", `https://cf-blast.livelikecdn.com/producer/applications/${getConfig().clientId}/programs/${environment.programId}`);
         cmsLinkElement.innerHTML = "CMS Link";
 
         this.utils.generateQrCode({ link: experienceLink, elementId: "qrcode" });
     };
 
     handleValueChange = (event, configItemName) => {
-        this.config.experienceConfig[configItemName] = event.target.value;
+        getConfig().experienceConfig[configItemName] = event.target.value;
     }
 
     handleChangeColor = (colorKey) => {
-        const colorConfig = this.config.experienceConfig.colorsList.find(x => x.key === colorKey);
+        const colorConfig = getConfig().experienceConfig.colorsList.find(x => x.key === colorKey);
         colorConfig.value = document.querySelector(`#${colorConfig.key}-color-input`).value;
         document.querySelector(`#${colorConfig.key}-color-demo-field`).style.backgroundColor = colorConfig.value;
     }
 
     loadDefaultValues = () => {
         // visuals section - load default 
-        document.querySelector("#login-banner-url-input").value = this.config.experienceConfig.loginBannerImageUrl;
-        document.querySelector("#header-banner-url-input").value = this.config.experienceConfig.headerBannerImageUrl;
-        document.querySelector("#font-file-url-input").value = this.config.experienceConfig.fontFileUrl;
+        document.querySelector("#login-banner-url-input").value = getConfig().experienceConfig.loginBannerImageUrl;
+        document.querySelector("#header-banner-url-input").value = getConfig().experienceConfig.headerBannerImageUrl;
+        document.querySelector("#font-file-url-input").value = getConfig().experienceConfig.fontFileUrl;
 
         const colorsForm = document.querySelector(".form-colors");
         colorsForm.innerHTML = "";
-        this.config.experienceConfig.colorsList.forEach(colorConfig => {
+        getConfig().experienceConfig.colorsList.forEach(colorConfig => {
             colorsForm.innerHTML += `
 <div class="color-section">
     <div class="color-description">
