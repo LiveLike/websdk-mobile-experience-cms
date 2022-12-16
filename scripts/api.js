@@ -1,8 +1,9 @@
 class LiveLikeApi {
 
-    constructor(){
+    constructor() {
         this.utils = new Utils();
     }
+
     createProgramAsync = async (title) => {
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
@@ -89,4 +90,20 @@ class LiveLikeApi {
         }
         console.log("unable to start program", response);
     };
+
+    updateChatroomAsync = async (chatroomId, customData) => {
+        const headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("Authorization", `Bearer ${producerToken}`);
+        const response = await fetch(`${baseUrl}/chat-rooms/${chatroomId}/`, {
+            method: "PATCH",
+            headers: headers,
+            body: JSON.stringify({ custom_data: customData })
+        });
+
+        if (response.ok) {
+            return response.json();
+        }
+        console.log("unable to update chatroom", response);
+    }
 }
