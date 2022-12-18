@@ -64,10 +64,9 @@ class App {
         getConfig().experienceConfig[configItemName] = event.target.value;
     }
 
-    handleChangeColor(colorKey) {
+    handleChangeColor(colorKey, event) {
         const colorConfig = getConfig().experienceConfig.colorsList.find(x => x.key === colorKey);
-        colorConfig.value = document.querySelector(`#${colorConfig.key}-color-input`).value;
-        document.querySelector(`#${colorConfig.key}-color-demo-field`).style.backgroundColor = colorConfig.value;
+        colorConfig.value = event.target.value;
     }
 
     handleFileUpload(fieldReferenceName, fileInputId) {
@@ -90,7 +89,7 @@ class App {
             colorsForm.innerHTML += `
 <div class="form-group">
     <label for="${colorConfig.key}-color-input">${colorConfig.display}</label>
-    <input type="color" class="form-control form-control-color" id="${colorConfig.key}-color-input" value="${colorConfig.value}" >
+    <input type="color" class="form-control form-control-color" id="${colorConfig.key}-color-input" value="${colorConfig.value}" onchange="app.handleChangeColor('${colorConfig.key}', event)">
 </div>
 <br />`;
         });
