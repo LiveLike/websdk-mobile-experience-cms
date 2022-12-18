@@ -22,7 +22,7 @@ class App {
         };
     }
 
-    createEnvironmentAsync = async ({ programTitle, leaderboardName }) => {
+    async createEnvironmentAsync({ programTitle, leaderboardName }) {
         const program = await this.api.createProgramAsync(programTitle);
         const leaderboard = await this.api.createLeaderboardAsync(leaderboardName);
         const linkLeaderboardWithProgramResponse = this.api.linkLeaderboardWithProgramAsync({ programId: program.id, leaderboardId: leaderboard.id });
@@ -40,7 +40,7 @@ class App {
         };
     };
 
-    handleCreateEnvironmentButtonAsync = async (e) => {
+    async handleCreateEnvironmentButtonAsync(e) {
         e.preventDefault();
         e.stopPropagation();
 
@@ -60,17 +60,24 @@ class App {
         this.utils.generateQrCode({ link: experienceLink, elementId: "qrcode" });
     };
 
-    handleValueChange = (event, configItemName) => {
+    handleValueChange(event, configItemName) {
         getConfig().experienceConfig[configItemName] = event.target.value;
     }
 
-    handleChangeColor = (colorKey) => {
+    handleChangeColor(colorKey) {
         const colorConfig = getConfig().experienceConfig.colorsList.find(x => x.key === colorKey);
         colorConfig.value = document.querySelector(`#${colorConfig.key}-color-input`).value;
         document.querySelector(`#${colorConfig.key}-color-demo-field`).style.backgroundColor = colorConfig.value;
     }
 
-    loadDefaultValues = () => {
+    handleFileUpload(fieldReferenceName, fileInputId) {
+        console.log(fieldReferenceName, fileInputId)
+        const fileInput = document.querySelector(`#${fileInputId}`)
+        console.log(fileInput);
+        console.log(fileInput.files[0]);
+    }
+
+    loadDefaultValues() {
         // visuals section - load default 
         // These are set when uploading files
         //document.querySelector("#login-banner-url-input").value = getConfig().experienceConfig.loginBannerImageUrl;
@@ -89,7 +96,7 @@ class App {
         });
     }
 
-    initializeAsync = () => {
+    initializeAsync() {
         document.querySelector("#create-environment-button").addEventListener("click", this.handleCreateEnvironmentButtonAsync);
         this.loadDefaultValues();
         console.debug("App initialized...");

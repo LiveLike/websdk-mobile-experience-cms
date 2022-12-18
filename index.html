@@ -75,15 +75,18 @@
                 <form autocomplete="off">
                     <div class="form-group">
                         <label for="login-banner-url-input">Log-in Bannner Image URL</label>
-                        <input type="file" class="form-control" id="login-banner-url-input">
+                        <input type="file" class="form-control" id="login-banner-url-input"
+                            onchange="app.handleFileUpload('loginBannerImageUrl', 'login-banner-url-input')">
                     </div>
                     <div class="form-group">
                         <label for="header-banner-url-input">Header Bannner Image URL</label>
-                        <input type="file" class="form-control" id="header-banner-url-input">
+                        <input type="file" class="form-control" id="header-banner-url-input"
+                            onchange="app.handleFileUpload('headerBannerImageUrl', 'header-banner-url-input')">
                     </div>
                     <div class="form-group">
                         <label for="font-file-url-input">Font File URL</label>
-                        <input type="file" class="form-control" id="font-file-url-input">
+                        <input type="file" class="form-control" id="font-file-url-input"
+                            onchange="app.handleFileUpload('fontFileUrl', 'font-file-url-input')">
                     </div>
                 </form>
             </div>
