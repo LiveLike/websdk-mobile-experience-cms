@@ -72,22 +72,18 @@ class App {
 
     loadDefaultValues = () => {
         // visuals section - load default 
-        document.querySelector("#login-banner-url-input").value = getConfig().experienceConfig.loginBannerImageUrl;
-        document.querySelector("#header-banner-url-input").value = getConfig().experienceConfig.headerBannerImageUrl;
-        document.querySelector("#font-file-url-input").value = getConfig().experienceConfig.fontFileUrl;
+        // These are set when uploading files
+        //document.querySelector("#login-banner-url-input").value = getConfig().experienceConfig.loginBannerImageUrl;
+        //document.querySelector("#header-banner-url-input").value = getConfig().experienceConfig.headerBannerImageUrl;
+        //document.querySelector("#font-file-url-input").value = getConfig().experienceConfig.fontFileUrl;
 
         const colorsForm = document.querySelector(".form-colors");
         colorsForm.innerHTML = "";
         getConfig().experienceConfig.colorsList.forEach(colorConfig => {
             colorsForm.innerHTML += `
-<div class="color-section">
-    <div class="color-description">
-        <label for="${colorConfig.key}-color-input">${colorConfig.display}</label>
-        <div class="color-demo-field" id="${colorConfig.key}-color-demo-field" style="background-color: ${colorConfig.value}">
-        </div>
-    </div>    
-    <br />
-    <input type="text" class="form-control color-input" id="${colorConfig.key}-color-input" value="${colorConfig.value}" onkeydown="app.handleChangeColor('${colorConfig.key}')" onkeyup="app.handleChangeColor('${colorConfig.key}')" placeholder="">
+<div class="form-group">
+    <label for="${colorConfig.key}-color-input">${colorConfig.display}</label>
+    <input type="color" class="form-control form-control-color" id="${colorConfig.key}-color-input" value="${colorConfig.value}" >
 </div>
 <br />`;
         });
