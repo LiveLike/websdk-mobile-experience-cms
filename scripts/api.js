@@ -117,6 +117,7 @@ class LiveLikeApi {
 
         const headers = new Headers();
         headers.append("Authorization", `Bearer ${getConfig().producerToken}`);
+        headers.append("Content-Type", "multipart/form-data");
 
         var data = new FormData()
         data.append('client_id', getConfig().clientId);
