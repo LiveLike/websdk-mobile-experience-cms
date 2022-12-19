@@ -111,4 +111,31 @@ class LiveLikeApi {
         }
         console.log("unable to update chatroom", response);
     }
+
+    async uploadMediaAsync(file, description) {
+        console.log(`started uploading file ${file.name}`);
+
+        const headers = new Headers();
+        headers.append("Authorization", `Bearer ${getConfig().producerToken}`);
+
+        var data = new FormData()
+        data.append('client_id', getConfig().clientId);
+        data.append('description', description);
+        data.append('file', file);
+
+        const response = await fetch(`${getConfig().baseUrl}/media/`, {
+            method: "POST",
+            headers: headers,
+            body: data
+        });
+
+        if (response.ok) {
+            console.log(response);
+            console.log(`uploaded file ${response.file}`);
+
+            return response.json();
+        }
+
+        console.log("unable to upload file", response);
+    }
 }

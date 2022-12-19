@@ -1,4 +1,6 @@
 let config = {
+    experienceBaseUrl: "",
+    producerBaseUrl: "",
     baseUrl: "",
     producerToken: "",
     clientId: "",

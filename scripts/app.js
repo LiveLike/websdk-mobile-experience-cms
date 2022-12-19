@@ -44,20 +44,20 @@ class App {
         e.preventDefault();
         e.stopPropagation();
 
-        const experienceName = `${document.querySelector("#experience-name-input").value} (${this.utils.guid()})`;
+        const experienceName = `${document.querySelector("#experience-name-input").value} (${window.app.utils.guid()})`;
 
-        const environment = await this.createEnvironmentAsync({ programTitle: experienceName, leaderboardName: experienceName });
+        const environment = await window.app.createEnvironmentAsync({ programTitle: experienceName, leaderboardName: experienceName });
 
         const experienceLinkElement = document.querySelector("#experience-link");
-        const experienceLink = `https://livelike.github.io/websdk-mobile-experience/?program_id=${environment.programId}`;
+        const experienceLink = `${getConfig().experienceBaseUrl}/?program_id=${environment.programId}`;
         experienceLinkElement.setAttribute("href", experienceLink);
         experienceLinkElement.innerHTML = "Experience Link";
 
         const cmsLinkElement = document.querySelector("#cms-link");
-        cmsLinkElement.setAttribute("href", `https://cf-blast.livelikecdn.com/producer/applications/${getConfig().clientId}/programs/${environment.programId}`);
+        cmsLinkElement.setAttribute("href", `${getConfig().producerBaseUrl}/producer/applications/${getConfig().clientId}/programs/${environment.programId}`);
         cmsLinkElement.innerHTML = "CMS Link";
 
-        this.utils.generateQrCode({ link: experienceLink, elementId: "qrcode" });
+        window.app.utils.generateQrCode({ link: experienceLink, elementId: "qrcode" });
     };
 
     handleValueChange(event, configItemName) {
@@ -69,11 +69,20 @@ class App {
         colorConfig.value = event.target.value;
     }
 
-    handleFileUpload(fieldReferenceName, fileInputId) {
+    async handleFileUpload(fieldReferenceName, fileInputId) {
         console.log(fieldReferenceName, fileInputId)
         const fileInput = document.querySelector(`#${fileInputId}`)
         console.log(fileInput);
         console.log(fileInput.files[0]);
+        const file = fileInput.files[0];
+
+        const fileUploadResult = await window.app.api.uploadMediaAsync(file);
+        if (fileUploadResult) {
+            console.log(getConfig().experienceConfig[fieldReferenceName])
+            getConfig().experienceConfig[fieldReferenceName] = fileUploadResult.file;
+            console.log(getConfig().experienceConfig[fieldReferenceName])
+        }
+        console.log(fileUploadResult);
     }
 
     loadDefaultValues() {
