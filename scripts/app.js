@@ -17,6 +17,7 @@ class App {
                 smallHeader: getConfig().experienceConfig.headerBannerImageUrl,
                 loginHeader: getConfig().experienceConfig.loginBannerImageUrl,
                 font: getConfig().experienceConfig.fontFileUrl,
+                language: getConfig().experienceConfig.language,
                 colors: colors
             }
         };
